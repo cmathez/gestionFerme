@@ -2,11 +2,17 @@ package com.inti.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Ferme implements Serializable{
@@ -17,6 +23,12 @@ public class Ferme implements Serializable{
 	private String nom;
 	private Date dateAchat;
 	
+	//Asso Many to Many w/ Departement
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ferme_dpt", joinColumns = @JoinColumn(name="id_ferme"), inverseJoinColumns = @JoinColumn(name="id_departement")) 
+	private List<Departement> departements;
+	
+		
 	//Constructeurs
 	public Ferme() {
 	}
